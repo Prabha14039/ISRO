@@ -1,0 +1,4 @@
+# Pixel reprojection error per camera
+# Image, mean, median, count
+cub_folder/M139939938LE.cub, 0.19197643397433967, 0.16530063851099655, 1346
+cub_folder/M139946735RE.cub, 0.17418547477843369, 0.15338625525872004, 1346

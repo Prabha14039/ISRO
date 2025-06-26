@@ -1,0 +1,3 @@
+# Per-image absolute horizontal and vertical change in camera center (meters)
+cub_folder/M139939938LE.cub 1.5324333 2.585406
+cub_folder/M139946735RE.cub 1.7651023 37.761348

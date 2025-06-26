@@ -1,0 +1,250 @@
+Object = spiceinit
+  IsisVersion       = "9.0.0  | 2025-05-17"
+  AleVersion        = "0.11.0 | py312hc47a885_3"
+  ProgramVersion    = 2021-08-10
+  ProgramPath       = /opt/homebrew/Caskroom/miniforge/base/envs/isis/bin
+  ExecutionDateTime = 2025-06-26T13:29:29
+  HostName          = Unknown
+  UserName          = prabha14039
+  Description       = "Update SPICE data (kernels, pointing, and position) for
+                       a camera cube"
+
+  Group = UserParameters
+    FROM         = cub_folder/M139939938LE.cub
+    WEB          = false
+    ATTACH       = TRUE
+    CKSMITHED    = FALSE
+    CKRECON      = TRUE
+    CKPREDICTED  = FALSE
+    CKNADIR      = FALSE
+    SPKSMITHED   = FALSE
+    SPKRECON     = TRUE
+    SPKPREDICTED = FALSE
+    SHAPE        = SYSTEM
+    STARTPAD     = 0.0
+    ENDPAD       = 0.0
+    URL          = https://astrogeology.usgs.gov/apis/ale/v0.9.1/spiceserver/
+    PORT         = 443
+  End_Group
+
+  Group = Error
+    Program = spiceinit
+    Code    = 1
+    Message = "No existing files found with a numerical version matching
+               [kernels.????.db] in
+               [/Volumes/Windows/ISRO/isisdata/lro/kernels/ck]"
+    File    = FileName.cpp
+    Line    = 672
+    Program = spiceinit
+  End_Group
+End_Object
+
+
+Object = spiceinit
+  IsisVersion       = "9.0.0  | 2025-05-17"
+  AleVersion        = "0.11.0 | py312hc47a885_3"
+  ProgramVersion    = 2021-08-10
+  ProgramPath       = /opt/homebrew/Caskroom/miniforge/base/envs/isis/bin
+  ExecutionDateTime = 2025-06-26T13:29:30
+  HostName          = Unknown
+  UserName          = prabha14039
+  Description       = "Update SPICE data (kernels, pointing, and position) for
+                       a camera cube"
+
+  Group = UserParameters
+    FROM         = cub_folder/M139946735RE.cub
+    WEB          = false
+    ATTACH       = TRUE
+    CKSMITHED    = FALSE
+    CKRECON      = TRUE
+    CKPREDICTED  = FALSE
+    CKNADIR      = FALSE
+    SPKSMITHED   = FALSE
+    SPKRECON     = TRUE
+    SPKPREDICTED = FALSE
+    SHAPE        = SYSTEM
+    STARTPAD     = 0.0
+    ENDPAD       = 0.0
+    URL          = https://astrogeology.usgs.gov/apis/ale/v0.9.1/spiceserver/
+    PORT         = 443
+  End_Group
+
+  Group = Error
+    Program = spiceinit
+    Code    = 1
+    Message = "No existing files found with a numerical version matching
+               [kernels.????.db] in
+               [/Volumes/Windows/ISRO/isisdata/lro/kernels/ck]"
+    File    = FileName.cpp
+    Line    = 672
+    Program = spiceinit
+  End_Group
+End_Object
+
+
+Object = spiceinit
+  IsisVersion       = "9.0.0  | 2025-05-17"
+  AleVersion        = "0.11.0 | py312hc47a885_3"
+  ProgramVersion    = 2021-08-10
+  ProgramPath       = /opt/homebrew/Caskroom/miniforge/base/envs/isis/bin
+  ExecutionDateTime = 2025-06-26T13:31:18
+  HostName          = Unknown
+  UserName          = prabha14039
+  Description       = "Update SPICE data (kernels, pointing, and position) for
+                       a camera cube"
+
+  Group = UserParameters
+    FROM         = cub_folder/M139946735RE.cub
+    WEB          = false
+    ATTACH       = TRUE
+    CKSMITHED    = FALSE
+    CKRECON      = TRUE
+    CKPREDICTED  = FALSE
+    CKNADIR      = FALSE
+    SPKSMITHED   = FALSE
+    SPKRECON     = TRUE
+    SPKPREDICTED = FALSE
+    SHAPE        = SYSTEM
+    STARTPAD     = 0.0
+    ENDPAD       = 0.0
+    URL          = https://astrogeology.usgs.gov/apis/ale/v0.9.1/spiceserver/
+    PORT         = 443
+  End_Group
+
+  Group = Error
+    Program = spiceinit
+    Code    = 1
+    Message = "No existing files found with a numerical version matching
+               [kernels.????.db] in
+               [/Volumes/Windows/ISRO/isisdata/lro/kernels/ck]"
+    File    = FileName.cpp
+    Line    = 672
+    Program = spiceinit
+  End_Group
+End_Object
+
+
+Object = spiceinit
+  IsisVersion       = "9.0.0  | 2025-05-17"
+  AleVersion        = "0.11.0 | py312hc47a885_3"
+  ProgramVersion    = 2021-08-10
+  ProgramPath       = /opt/homebrew/Caskroom/miniforge/base/envs/isis/bin
+  ExecutionDateTime = 2025-06-26T13:33:21
+  HostName          = Unknown
+  UserName          = prabha14039
+  Description       = "Update SPICE data (kernels, pointing, and position) for
+                       a camera cube"
+
+  Group = UserParameters
+    FROM         = cub_folder/M139946735RE.cub
+    WEB          = yes
+    ATTACH       = TRUE
+    CKSMITHED    = FALSE
+    CKRECON      = TRUE
+    CKPREDICTED  = FALSE
+    CKNADIR      = FALSE
+    SPKSMITHED   = FALSE
+    SPKRECON     = TRUE
+    SPKPREDICTED = FALSE
+    SHAPE        = SYSTEM
+    STARTPAD     = 0.0
+    ENDPAD       = 0.0
+    URL          = https://astrogeology.usgs.gov/apis/ale/v0.9.1/spiceserver/
+    PORT         = 443
+  End_Group
+
+  Group = Kernels
+    NaifFrameCode             = -85610
+    LeapSecond                = $base/kernels/lsk/naif0012.tls
+    TargetAttitudeShape       = ($base/kernels/pck/pck00009.tpc,
+                                 $lro/kernels/pck/moon_080317.tf,
+                                 $lro/kernels/pck/moon_assoc_me.tf)
+    TargetPosition            = (Table,
+                                 $lro/kernels/tspk/moon_pa_de421_1900-2050.bpc,
+                                 $lro/kernels/tspk/de421.bsp)
+    InstrumentPointing        = (Table,
+                                 $lro/kernels/ck/lrolc_2010243_2010274_v03.bc,
+                                 $lro/kernels/ck/moc42r_2010243_2010274_v04.bc,
+                                 $lro/kernels/fk/lro_frames_2014049_v01.tf)
+    Instrument                = $lro/kernels/ik/lro_lroc_v18.ti
+    SpacecraftClock           = $lro/kernels/sclk/lro_clkcor_2025169_v00.tsc
+    InstrumentPosition        = (Table,
+                                 $lro/kernels/spk/fdf29r_2010244_2010274_v01.b-
+                                 sp)
+    InstrumentAddendum        = $lro/kernels/iak/lro_instrumentAddendum_v05.ti
+    ShapeModel                = $base/dems/ldem_128ppd_Mar2011_clon180_radius-
+                                _pad.cub
+    InstrumentPositionQuality = Reconstructed
+    InstrumentPointingQuality = Reconstructed
+    CameraVersion             = 2
+  End_Group
+
+  Group = Accounting
+    ConnectTime = 00:00:14.2
+    CpuTime     = 00:00:14.0
+  End_Group
+End_Object
+
+
+Object = spiceinit
+  IsisVersion       = "9.0.0  | 2025-05-17"
+  AleVersion        = "0.11.0 | py312hc47a885_3"
+  ProgramVersion    = 2021-08-10
+  ProgramPath       = /opt/homebrew/Caskroom/miniforge/base/envs/isis/bin
+  ExecutionDateTime = 2025-06-26T13:35:42
+  HostName          = Unknown
+  UserName          = prabha14039
+  Description       = "Update SPICE data (kernels, pointing, and position) for
+                       a camera cube"
+
+  Group = UserParameters
+    FROM         = cub_folder/M139939938LE.cub
+    WEB          = yes
+    ATTACH       = TRUE
+    CKSMITHED    = FALSE
+    CKRECON      = TRUE
+    CKPREDICTED  = FALSE
+    CKNADIR      = FALSE
+    SPKSMITHED   = FALSE
+    SPKRECON     = TRUE
+    SPKPREDICTED = FALSE
+    SHAPE        = SYSTEM
+    STARTPAD     = 0.0
+    ENDPAD       = 0.0
+    URL          = https://astrogeology.usgs.gov/apis/ale/v0.9.1/spiceserver/
+    PORT         = 443
+  End_Group
+
+  Group = Kernels
+    NaifFrameCode             = -85600
+    LeapSecond                = $base/kernels/lsk/naif0012.tls
+    TargetAttitudeShape       = ($base/kernels/pck/pck00009.tpc,
+                                 $lro/kernels/pck/moon_080317.tf,
+                                 $lro/kernels/pck/moon_assoc_me.tf)
+    TargetPosition            = (Table,
+                                 $lro/kernels/tspk/moon_pa_de421_1900-2050.bpc,
+                                 $lro/kernels/tspk/de421.bsp)
+    InstrumentPointing        = (Table,
+                                 $lro/kernels/ck/lrolc_2010243_2010274_v03.bc,
+                                 $lro/kernels/ck/moc42r_2010243_2010274_v04.bc,
+                                 $lro/kernels/fk/lro_frames_2014049_v01.tf)
+    Instrument                = $lro/kernels/ik/lro_lroc_v18.ti
+    SpacecraftClock           = $lro/kernels/sclk/lro_clkcor_2025169_v00.tsc
+    InstrumentPosition        = (Table,
+                                 $lro/kernels/spk/fdf29r_2010244_2010274_v01.b-
+                                 sp)
+    InstrumentAddendum        = $lro/kernels/iak/lro_instrumentAddendum_v05.ti
+    ShapeModel                = $base/dems/ldem_128ppd_Mar2011_clon180_radius-
+                                _pad.cub
+    InstrumentPositionQuality = Reconstructed
+    InstrumentPointingQuality = Reconstructed
+    CameraVersion             = 2
+  End_Group
+
+  Group = Accounting
+    ConnectTime = 00:00:24.9
+    CpuTime     = 00:00:24.8
+  End_Group
+End_Object
+
+

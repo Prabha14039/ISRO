@@ -1,0 +1,35 @@
+ASP 3.6.0-alpha
+Build ID: 527c331
+Build date: 2025-06-22
+
+/Volumes/Windows/ISRO/Stereopipeline/StereoPipeline-3.6.0-alpha-2025-06-22-arm64-OSX/libexec/bundle_adjust cub_folder/M139939938LE.cub M139946735RE.cub --num-iterations 100 -o ba/run 
+
+uname -a
+Darwin 192.168.1.26 24.5.0 Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:26 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T8112 arm64 arm Darwin
+
+sysctl -a hw 2>/dev/null | grep -E "ncpu|byteorder|memsize|cpufamily|cachesize|mmx|sse|machine|model" | grep -v ipv6
+hw.ncpu: 8
+hw.byteorder: 1234
+hw.memsize: 17179869184
+hw.perflevel1.l1icachesize: 131072
+hw.perflevel1.l1dcachesize: 65536
+hw.perflevel1.l2cachesize: 4194304
+hw.perflevel0.l1icachesize: 196608
+hw.perflevel0.l1dcachesize: 131072
+hw.perflevel0.l2cachesize: 16777216
+hw.cpufamily: -634136515
+hw.cachesize: 3700211712 65536 4194304 0 0 0 0 0 0 0
+hw.l1icachesize: 131072
+hw.l1dcachesize: 65536
+hw.l2cachesize: 4194304
+hw.memsize_usable: 16585113600
+
+
+
+Vision Workbench log started at 2025-06-25 13:09:31.
+
+2025-06-25 13:09:31 {0} [ console ] : 
+
+ERROR: Cannot find the file: M139946735RE.cub.
+
+

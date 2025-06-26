@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>final_points</name>
+	<Style id="point">
+		<LabelStyle>
+			<scale>0.0</scale>
+		</LabelStyle>
+		<IconStyle>
+			<scale>1</scale>
+			<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Style id="point_highlight">
+		<LabelStyle>
+			<scale>0.0</scale>
+		</LabelStyle>
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+					<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<StyleMap id="point_placemark">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#point</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#point_highlight</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.99072,-84.7888,-1359.59</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.25242,-84.8513,-1109.13</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.89809,-84.8907,-1090.18</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.59131,-84.8911,-1176.32</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.56006,-84.9029,-1176.34</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -6.04173,-84.9687,-1117.73</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.66993,-84.9981,-1104.23</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.22908,-84.9721,-1046.8</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.94506,-85.0392,-1076.03</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.86914,-85.0591,-1006.71</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.30272,-85.0713,-988.252</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.79693,-85.1074,-788.355</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.39507,-85.0962,-868.494</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>   -5.2936,-85.1203,-750.788</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.91189,-85.17,-483.289</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>    -5.499,-85.1647,-484.73</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.24181,-85.1882,-320.766</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.99311,-85.2495,-212.648</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>   -5.5794,-85.2373,-201.064</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.83498,-85.2747,-198.687</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.82589,-85.3326,-159.17</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.36659,-85.3335,-159.811</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.80585,-85.35,-118.212</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.20506,-85.3408,-160.686</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.30816,-85.4064,-51.6616</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.23365,-85.4033,-78.132</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.40312,-85.4243,72.2429</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.74167,-85.4698,375.412</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.39075,-85.457,252.388</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>   -5.9124,-85.4795,487.384</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.76174,-85.5293,886.164</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.57939,-85.5368,904.279</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>   -5.8147,-85.5614,1190.25</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.17866,-85.5549,978.184</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>    -5.411,-85.6056,1426.13</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.93445,-85.6447,1974.64</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.60662,-85.6457,1842.54</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.82736,-85.6525,2007.14</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.15173,-85.6605,1875.46</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.45833,-85.7107,2532.09</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.70197,-85.7213,2753.12</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.51489,-85.7208,2680.78</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.31636,-85.7752,3386.11</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -6.04607,-85.7958,3832.79</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.48251,-85.7941,3674.02</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.70075,-85.8149,3993.41</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.57243,-85.8185,3986.55</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.61304,-85.8473,4165.62</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<styleUrl>#point_placemark</styleUrl>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>absolute</altitudeMode>
+			<coordinates>  -5.30837,-85.8929,4284.35</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

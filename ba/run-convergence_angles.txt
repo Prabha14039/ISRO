@@ -1,0 +1,3 @@
+# Convergence angle percentiles (in degrees) for each image pair having matches
+# left_image right_image 25% 50% 75% num_matches
+cub_folder/M139939938LE.cub cub_folder/M139946735RE.cub 20.924356 20.956601 20.990898 1346
