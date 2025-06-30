@@ -1,0 +1,4 @@
+run_full1/run-0_0_2048_2048
+run_full1/run-2048_0_726_2048
+run_full1/run-0_2048_2048_305
+run_full1/run-2048_2048_726_305

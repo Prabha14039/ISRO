@@ -1,0 +1,219 @@
+ASP 3.6.0-alpha
+Build ID: 527c331
+Build date: 2025-06-22
+
+/Volumes/Windows/ISRO/Stereopipeline/StereoPipeline-3.6.0-alpha-2025-06-22-arm64-OSX/libexec/sfs -i run_full1/run-crop-DEM.tif cub_folder/M139939938LE.cub --use-approx-camera-models --crop-input-images --reflectance-type 1 --smoothness-weight 0.08 --initial-dem-constraint-weight 0.001 --max-iterations 10 -o sfs_ref1/run 
+
+uname -a
+Darwin 192.168.1.4 24.5.0 Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:26 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T8112 arm64 arm Darwin
+
+sysctl -a hw 2>/dev/null | grep -E "ncpu|byteorder|memsize|cpufamily|cachesize|mmx|sse|machine|model" | grep -v ipv6
+hw.ncpu: 8
+hw.byteorder: 1234
+hw.memsize: 17179869184
+hw.perflevel1.l1icachesize: 131072
+hw.perflevel1.l1dcachesize: 65536
+hw.perflevel1.l2cachesize: 4194304
+hw.perflevel0.l1icachesize: 196608
+hw.perflevel0.l1dcachesize: 131072
+hw.perflevel0.l2cachesize: 16777216
+hw.cpufamily: -634136515
+hw.cachesize: 3700211712 65536 4194304 0 0 0 0 0 0 0
+hw.l1icachesize: 131072
+hw.l1dcachesize: 65536
+hw.l2cachesize: 4194304
+hw.memsize_usable: 16585113600
+
+
+
+Vision Workbench log started at 2025-06-28 15:10:28.
+
+2025-06-28 15:10:28 {0} [ console ] : Found DEM nodata value: -1e+06
+2025-06-28 15:10:28 {0} [ console ] : DEM cols and rows: 450 405
+2025-06-28 15:10:28 {0} [ console ] : Using session: isis
+2025-06-28 15:10:28 {0} [ console ] : Loading camera model: cub_folder/M139939938LE.cub 
+2025-06-28 15:10:28 {0} [ console ] : 2025-06-28 15:10:28 {0} [ console ] : Sun position for: cub_folder/M139939938LE.cub is Vector3(147573131742.45401,-29119185049.984894,-4140770313.7315812)
+2025-06-28 15:10:28 {0} [ console ] : Sun azimuth and elevation for: cub_folder/M139939938LE.cub are -5.4275416292832785 and 6.5481192639362833 degrees.
+2025-06-28 15:10:28 {0} [ console ] : 2025-06-28 15:10:28 {0} [ console ] : Creating an approximate camera model for cub_folder/M139939938LE.cub
+2025-06-28 15:10:28 {0} [ console ] : Approximation proj box: Min: (-15714.9, 150331) width: 970.119 height: 873.107
+2025-06-28 15:10:28 {0} [ console ] : Lookup table dimensions: 450 405
+2025-06-28 15:10:34 {0} [ console ] : Approximate model generation time: 5.90942 s.
+2025-06-28 15:10:40 {0} [ console ] : Crop box dimensions: Min: (259.239, 8700.23) width: 929.91 height: 852.981
+2025-06-28 15:10:40 {0} [ console ] : Max error of approximating cameras: 0.000711464 pixels.
+2025-06-28 15:10:40 {0} [ console ] : DEM grid in x and y in meters: 1.07519 1.07519
+2025-06-28 15:10:41 {0} [ console ] : Using: 4 thread(s).
+2025-06-28 15:10:59 {0} [ console ] : Finished iteration: 0
+2025-06-28 15:10:59 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:10:59 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:10:59 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter0.tif
+2025-06-28 15:10:59 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter0.tif
+2025-06-28 15:11:01 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter0-meas-intensity.tif
+2025-06-28 15:11:01 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter0-comp-intensity.tif
+2025-06-28 15:11:01 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter0-blending-weight.tif
+2025-06-28 15:11:01 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter0-reflectance.tif
+2025-06-28 15:11:01 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter0-meas-albedo.tif
+2025-06-28 15:11:01 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:11:22 {0} [ console ] : Finished iteration: 1
+2025-06-28 15:11:22 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:11:22 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:11:22 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter1.tif
+2025-06-28 15:11:22 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter1.tif
+2025-06-28 15:11:23 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter1-meas-intensity.tif
+2025-06-28 15:11:24 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter1-comp-intensity.tif
+2025-06-28 15:11:24 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter1-blending-weight.tif
+2025-06-28 15:11:24 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter1-reflectance.tif
+2025-06-28 15:11:24 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter1-meas-albedo.tif
+2025-06-28 15:11:24 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:11:44 {0} [ console ] : Finished iteration: 2
+2025-06-28 15:11:44 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:11:44 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:11:44 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter2.tif
+2025-06-28 15:11:44 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter2.tif
+2025-06-28 15:11:46 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter2-meas-intensity.tif
+2025-06-28 15:11:46 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter2-comp-intensity.tif
+2025-06-28 15:11:46 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter2-blending-weight.tif
+2025-06-28 15:11:46 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter2-reflectance.tif
+2025-06-28 15:11:46 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter2-meas-albedo.tif
+2025-06-28 15:11:46 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:12:05 {0} [ console ] : Finished iteration: 3
+2025-06-28 15:12:05 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:12:05 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:12:05 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter3.tif
+2025-06-28 15:12:06 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter3.tif
+2025-06-28 15:12:07 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter3-meas-intensity.tif
+2025-06-28 15:12:07 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter3-comp-intensity.tif
+2025-06-28 15:12:07 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter3-blending-weight.tif
+2025-06-28 15:12:07 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter3-reflectance.tif
+2025-06-28 15:12:07 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter3-meas-albedo.tif
+2025-06-28 15:12:07 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:12:10 {0} [ console ] : Finished iteration: 4
+2025-06-28 15:12:10 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:12:10 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:12:10 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter4.tif
+2025-06-28 15:12:10 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter4.tif
+2025-06-28 15:12:11 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter4-meas-intensity.tif
+2025-06-28 15:12:11 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter4-comp-intensity.tif
+2025-06-28 15:12:11 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter4-blending-weight.tif
+2025-06-28 15:12:11 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter4-reflectance.tif
+2025-06-28 15:12:11 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter4-meas-albedo.tif
+2025-06-28 15:12:11 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:12:14 {0} [ console ] : Finished iteration: 5
+2025-06-28 15:12:14 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:12:14 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:12:14 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter5.tif
+2025-06-28 15:12:14 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter5.tif
+2025-06-28 15:12:15 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter5-meas-intensity.tif
+2025-06-28 15:12:15 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter5-comp-intensity.tif
+2025-06-28 15:12:15 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter5-blending-weight.tif
+2025-06-28 15:12:15 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter5-reflectance.tif
+2025-06-28 15:12:15 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter5-meas-albedo.tif
+2025-06-28 15:12:15 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:12:35 {0} [ console ] : Finished iteration: 6
+2025-06-28 15:12:35 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:12:35 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:12:35 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter6.tif
+2025-06-28 15:12:35 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter6.tif
+2025-06-28 15:12:36 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter6-meas-intensity.tif
+2025-06-28 15:12:36 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter6-comp-intensity.tif
+2025-06-28 15:12:36 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter6-blending-weight.tif
+2025-06-28 15:12:36 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter6-reflectance.tif
+2025-06-28 15:12:37 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter6-meas-albedo.tif
+2025-06-28 15:12:37 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:12:39 {0} [ console ] : Finished iteration: 7
+2025-06-28 15:12:39 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:12:39 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:12:39 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter7.tif
+2025-06-28 15:12:39 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter7.tif
+2025-06-28 15:12:40 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter7-meas-intensity.tif
+2025-06-28 15:12:40 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter7-comp-intensity.tif
+2025-06-28 15:12:40 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter7-blending-weight.tif
+2025-06-28 15:12:41 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter7-reflectance.tif
+2025-06-28 15:12:41 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter7-meas-albedo.tif
+2025-06-28 15:12:41 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:13:01 {0} [ console ] : Finished iteration: 8
+2025-06-28 15:13:01 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:13:01 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:13:01 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter8.tif
+2025-06-28 15:13:01 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter8.tif
+2025-06-28 15:13:02 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter8-meas-intensity.tif
+2025-06-28 15:13:03 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter8-comp-intensity.tif
+2025-06-28 15:13:03 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter8-blending-weight.tif
+2025-06-28 15:13:03 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter8-reflectance.tif
+2025-06-28 15:13:03 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter8-meas-albedo.tif
+2025-06-28 15:13:03 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:13:23 {0} [ console ] : Finished iteration: 9
+2025-06-28 15:13:23 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:13:23 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:13:23 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter9.tif
+2025-06-28 15:13:23 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter9.tif
+2025-06-28 15:13:24 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter9-meas-intensity.tif
+2025-06-28 15:13:25 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter9-comp-intensity.tif
+2025-06-28 15:13:25 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter9-blending-weight.tif
+2025-06-28 15:13:25 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter9-reflectance.tif
+2025-06-28 15:13:25 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter9-meas-albedo.tif
+2025-06-28 15:13:25 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:13:45 {0} [ console ] : Finished iteration: 10
+2025-06-28 15:13:45 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:13:45 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:13:45 {0} [ console ] : Writing: sfs_ref1/run-DEM-iter10.tif
+2025-06-28 15:13:45 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-iter10.tif
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter10-meas-intensity.tif
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter10-comp-intensity.tif
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter10-blending-weight.tif
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter10-reflectance.tif
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-iter10-meas-albedo.tif
+2025-06-28 15:13:47 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:13:47 {0} [ console ] : Finished iteration: 11
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-exposures.txt
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-model_coeffs.txt
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-DEM-final.tif
+2025-06-28 15:13:47 {0} [ console ] : Writing: sfs_ref1/run-comp-albedo-final.tif
+2025-06-28 15:13:49 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-final-meas-intensity.tif
+2025-06-28 15:13:49 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-final-comp-intensity.tif
+2025-06-28 15:13:49 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-final-blending-weight.tif
+2025-06-28 15:13:49 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-final-reflectance.tif
+2025-06-28 15:13:49 {0} [ console ] : Writing: sfs_ref1/run-M139939938LE-final-meas-albedo.tif
+2025-06-28 15:13:49 {0} [ console ] : Exposure for image 0: 854.095
+2025-06-28 15:13:49 {0} [ console ] : 
+Solver Summary (v 2.2.0-eigen-(3.4.0)-lapack-suitesparse-(5.10.1)-metis-(5.1.0)-eigensparse)
+
+                                     Original                  Reduced
+Parameter blocks                       182250                   180544
+Parameters                             182250                   180544
+Residual blocks                        541632                   541632
+Residuals                             1083264                  1083264
+
+Minimizer                        TRUST_REGION
+Trust region strategy     LEVENBERG_MARQUARDT
+Sparse linear algebra library    SUITE_SPARSE + AMD 
+
+                                        Given                     Used
+Linear solver                    SPARSE_SCHUR             SPARSE_SCHUR
+Threads                                     4                        4
+Linear solver ordering              AUTOMATIC             20250,160294
+Schur structure                         d,1,1                    d,d,d
+
+Cost:
+Initial                          2.849186e+08
+Final                            6.633956e+05
+Change                           2.842552e+08
+
+Minimizer iterations                       11
+Successful steps                            8
+Unsuccessful steps                          3
+
+Time (in seconds):
+Preprocessor                         1.134835
+
+  Residual only evaluation          18.629543 (10)
+  Jacobian & residual evaluation   141.506914 (8)
+  Linear solver                      6.900573 (10)
+Minimizer                          184.857140
+
+Postprocessor                        0.014418
+Total                              186.006393
+
+Termination:                   NO_CONVERGENCE (Maximum number of iterations reached. Number of iterations: 10.)
+
+
+2025-06-28 15:13:49 {0} [ console ] : Total elapsed time: 201.104 s.
