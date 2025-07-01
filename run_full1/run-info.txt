@@ -1,8 +1,0 @@
-images: cub_folder/M139939938LE.cub cub_folder/M139946735RE.cub 
-cameras: 
-input_dem: 
-output_prefix: run_full1/run
-alignment_method: affineepipolar
-stereo_session: isis
-left_image_crop_win: 0 7998 2532 2696
-right_image_crop_win: 0 9377 2532 2505

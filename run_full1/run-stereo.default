@@ -1,4 +1,0 @@
-# ASP stereo configuration copy
-# 2025-Jun-28 14:54:56
-# > /Volumes/Windows/ISRO/Stereopipeline/StereoPipeline-3.6.0-alpha-2025-06-22-arm64-OSX/libexec/stereo_parse --left-image-crop-win 0 7998 2728 2696 --right-image-crop-win 0 9377 2733 2505 --stereo-algorithm asp_mgm --subpixel-mode 9 --bundle-adjust-prefix ba/run cub_folder/M139939938LE.cub cub_folder/M139946735RE.cub run_full1/run --corr-seed-mode 1 --sgm-collar-size 256 --parallel-tile-size 2048 2048
-

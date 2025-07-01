@@ -1,4 +1,0 @@
-# Per-image offsets between initial and final triangulated points (meters)
-# Image mean median count
-cub_folder/M139939938LE.cub 0.39799135 0.38115818 1346
-cub_folder/M139946735RE.cub 0.39799135 0.38115818 1346

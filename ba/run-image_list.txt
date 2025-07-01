@@ -1,2 +1,0 @@
-cub_folder/M139939938LE.cub
-cub_folder/M139946735RE.cub
