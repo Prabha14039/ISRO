@@ -1,47 +1,76 @@
 s := img_folder
 d := cub_folder
+a := json_folder
+lola_img := DEM/LDEM_80S_20M.IMG
+lola_lbl := DEM/LDEM_80S_20M.LBL
 
-images := $(wildcard $(s)/*.IMG)
-cubes := $(patsubst $(s)/%.IMG, $(d)/%.cub, $(images))
+# Intermediate and final outputs
+lola_cub := dem_cub/ldem_80s_20m.cub
+lola_scaled := tif_files/ldem_80s_20m_scale.tif
+ref_dem := tif_files/ref.tif
+blurred_ref := tif_files/ref_blur.tif
 
-all: sfs
+IMG_FILES := $(wildcard $(s)/*.IMG)
+CUBES     := $(patsubst $(s)/%.IMG, $(d)/%.cub, $(IMG_FILES))
+JSONS     := $(patsubst $(d)/%.cub, $(a)/%.json, $(CUBES))
 
-ba: $(cubes)
-	bundle_adjust $(d)/M139939938LE.cub $(d)/M139946735RE.cub --num-iterations 100 -o ba/run
+# Projection and extent parameters
+proj := "+proj=stere +lat_0=-85.3643 +lon_0=31.2387 +R=1737400 +units=m +no_defs"
+te := -te -7050.5 -10890.5 -1919.5 -5759.5
 
-stereo: ba
-		parallel_stereo                           \
-		--left-image-crop-win 0 7998 2728 2696  \
-		--right-image-crop-win 0 9377 2733 2505 \
-		--stereo-algorithm asp_mgm              \
-		--subpixel-mode 9                       \
-		--bundle-adjust-prefix ba/run           \
-		$(d)/M139939938LE.cub $(d)/M139946735RE.cub                \
-		run_full1/run
+.PHONY: all clean cubes jsons lola_dem_convert
 
-sfs: stereo
-	sfs -i run_full1/run-crop-DEM.tif       \
-		$(d)/M139939938LE.cub                         \
-		--use-approx-camera-models            \
-		--crop-input-images                   \
-		--reflectance-type 1                  \
-		--smoothness-weight 0.08              \
-		--initial-dem-constraint-weight 0.001 \
-		--max-iterations 10                   \
-		-o sfs_ref1/run
+all: cubes jsons
 
-$(d)/%.cub:$(s)/%.IMG
-	@echo "Converting $< to $@"
+cubes: $(CUBES)
+
+jsons: $(JSONS)
+
+# Rule to create .cub from .IMG
+$(d)/%.cub: $(s)/%.IMG
 	@mkdir -p $(d)
-	@lronac2sis from=$< to=$@
-	@echo "Using spice kerneals to fetch the info of cub files and inserting them into the files"
-	@spiceinit from=$@ web=yes
-	@isd_generate $@
+	@echo "🔄 Converting $< → $@"
+	lronac2isis from=$< to=$@
+	@echo "🛰️  Initializing SPICE..."
+	spiceinit from=$@ web=yes
 
-download:
-	wget --no-check-certificate -nc -c -i first_10.txt -P img_folder -o download_log.txt
+# Rule to create .json from .cub
+$(a)/%.json: $(d)/%.cub
+	@mkdir -p $(a)
+	@echo "📝 Generating ISD: $< → $@"
+	isd_generate -o $@ $<
 
+
+# ===============================
+# LOLA DEM Conversion Section
+# ===============================
+
+# Final target
+lola_dem_convert: $(blurred_ref)
+
+# Convert PDS LOLA IMG+LBL to ISIS cub
+$(lola_cub): $(lola_lbl) $(lola_img)
+	pds2isis from=$(lola_lbl) to=$(lola_cub)
+
+# Automatically extract SCALING_FACTOR from .LBL
+scale := $(shell grep -i SCALING_FACTOR $(lola_lbl) | head -n1 | sed 's/[^0-9.]//g')
+
+$(lola_scaled): $(lola_cub)
+	@echo "ℹ️  Extracted SCALING_FACTOR = $(scale) from $(lola_lbl)"
+	image_calc -c "$(scale)*var_0" $(lola_cub) -o $(lola_scaled)
+
+# Reproject and resample to 1m GSD, compressed and tiled
+$(ref_dem): $(lola_scaled)
+	gdalwarp -overwrite -r cubicspline -tr 1 1 \
+	  -co COMPRESSION=LZW -co TILED=yes -co INTERLEAVE=BAND \
+	  -co BLOCKXSIZE=256 -co BLOCKYSIZE=256 \
+	  -t_srs $(proj) $(te) $(lola_scaled) $(ref_dem)
+
+# Blur to remove spikes/artifacts
+$(blurred_ref): $(ref_dem)
+	dem_mosaic --dem-blur-sigma 2 $(ref_dem) -o $(blurred_ref)
 
 clean:
-	@echo "cleaning!!!"
-	@rm -rf default.profraw print.prt
+	@echo "🧹 Cleaning!"
+	@rm -rf $(d)/*.cub $(a)/*.json default.profraw print.prt
+

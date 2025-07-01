@@ -1,7 +1,5 @@
 ---
 
-## ✅ Corrected and Refined `README.md`
-
 # 🌓 Filter Mapprojected TIFFs Using `dem_mosaic`
 
 This guide explains how to use `dem_mosaic` from the [Ames Stereo Pipeline](https://stereopipeline.readthedocs.io/) to filter out mapprojected TIFF files (`*.tif`) that **do not overlap** a specified region of interest (ROI) — e.g., for Shape-from-Shading (SfS) processing over lunar polar regions.
