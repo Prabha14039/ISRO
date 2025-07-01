@@ -1,14 +1,7 @@
-Thanks for the clarification — let me now rewrite the `README.md` properly, **focused exactly on your workflow**:
-
-* You already have **TIFF files** (from mapprojected `.cub` images).
-* You want to **filter** only those that **overlap** your **region of interest** (ROI), using `dem_mosaic`.
-* You want a clean and **minimal, correct, and reproducible explanation**.
-
 ---
 
 ## ✅ Corrected and Refined `README.md`
 
-```markdown
 # 🌓 Filter Mapprojected TIFFs Using `dem_mosaic`
 
 This guide explains how to use `dem_mosaic` from the [Ames Stereo Pipeline](https://stereopipeline.readthedocs.io/) to filter out mapprojected TIFF files (`*.tif`) that **do not overlap** a specified region of interest (ROI) — e.g., for Shape-from-Shading (SfS) processing over lunar polar regions.
