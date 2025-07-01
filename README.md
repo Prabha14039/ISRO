@@ -22,6 +22,18 @@ Identify and keep only the TIFF images that:
 
 ---
 
+ ### 1. First we fetch the NAC images that lie on the DEM
+
+```bash
+M1496378219RE.IMG
+M1496434319RE.IMG
+M1496462370RE.IMG
+M1496630688RE.IMG
+M1496658728RE.IMG
+M1496686792RE.IMG
+M1496714841RE.IMG
+````
+
 ## 🧭 Steps
 
 ### 1. Place All `.tif` Files in One Folder
