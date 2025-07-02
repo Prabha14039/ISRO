@@ -1,3 +1,10 @@
 isisdata/
 Stereopipeline/
 DEM/
+cub_folder/
+img_folder/
+dem_folder/
+json_folder/
+tif_files/
+dem_cub/
+miscl/
