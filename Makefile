@@ -1,9 +1,9 @@
 # Intermediate and final outputs
 lola_cub := dem_cub/ldem_80s_20m.cub
-lola_scaled := tif_files/ldem_80s_20m_scale.tif
-ref_dem := tif_files/ref.tif
-blurred_ref := tif_files/ref_blur.tif
-out_dir := tif_files/img2tif
+lola_scaled := tiff/ldem_80s_20m_scale.tif
+ref_dem := tiff/refrence.tif
+blurred_ref := tiff/ref_blur.tif
+out_dir := tiff/img2tif
 s := img_folder
 d := cub_folder
 a := json_folder
@@ -15,10 +15,9 @@ CUBES     := $(patsubst $(s)/%.IMG, $(d)/%.cub, $(IMG_FILES))
 JSONS     := $(patsubst $(d)/%.cub, $(a)/%.json, $(CUBES))
 
 cub_files := $(wildcard $(d)/*.cub)
-tif_files := $(patsubst $(d)/%.cub,$(out_dir)/%_map.tif,$(cub_files))
+tiff := $(patsubst $(d)/%.cub,$(out_dir)/%_map.tif,$(cub_files))
 
 # Projection and extent parameters
-proj := "+proj=stere +lat_0=-85.3643 +lon_0=31.2387 +R=1737400 +units=m +no_defs"
 te := -7050.5 -10890.5 -1919.5 -5759.5
 
 .PHONY: all clean cubes jsons lola_dem_convert all_maps
@@ -27,7 +26,7 @@ all: cubes jsons app_maps
 
 cubes: $(CUBES)
 
-all_maps: $(tif_files)
+all_maps: $(tiff)
 
 jsons: $(JSONS)
 
@@ -37,7 +36,7 @@ $(d)/%.cub: $(s)/%.IMG
 	@echo "🔄 Converting $< → $@"
 	lronac2isis from=$< to=$@
 	@echo "🛰️  Initializing SPICE..."
-	spiceinit from=$@ web=yes
+	spiceinit from=$@ shape=USER model=$(lola_cub)
 
 # Rule to create .json from .cub
 $(a)/%.json: $(d)/%.cub
@@ -68,7 +67,6 @@ $(ref_dem): $(lola_scaled)
 	gdalwarp -overwrite -r cubicspline -tr 1 1 \
 	  -co COMPRESSION=LZW -co TILED=yes -co INTERLEAVE=BAND \
 	  -co BLOCKXSIZE=256 -co BLOCKYSIZE=256 \
-	  -t_srs $(proj) \
 	  -te $(te) $(lola_scaled) $(ref_dem)
 
 # Blur to remove spikes/artifacts
@@ -79,10 +77,10 @@ $(blurred_ref): $(ref_dem)
 # Mapprojection Section
 # ===============================
 
-$(out_dir)/%_map.tif: $(d)/%.cub $(ref_dem)
+$(out_dir)/%_map.tif: $(d)/%.cub $(ref_dem) $(a)/%.json
 	@mkdir -p $(out_dir)
-	@echo "🗺️  Mapproject $< → $@"
-	mapproject --tr 1 --t_projwin $(te) $(ref_dem) $< $@ --tile-size 1024
+	@echo "🗺️  Mapproject $< with CSM model → $@"
+	mapproject -t csm $(ref_dem) $< $(d)/$*.json $@ --tr 1 --tile-size 1024
 
 clean:
 	@echo "🧹 Cleaning!"
