@@ -1,4 +1,3 @@
-````markdown
 # Creating a DEM Using a Coarse DEM and NAC Images Enhanced with SfS
 
 This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and NAC images. The coarse DEM is refined using Shape-from-Shading (SfS).
