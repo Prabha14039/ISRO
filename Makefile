@@ -22,7 +22,7 @@ te := -7050.5 -10890.5 -1919.5 -5759.5
 
 .PHONY: all clean cubes jsons lola_dem_convert all_maps
 
-all: cubes jsons app_maps
+all: lola_dem_convert cubes jsons app_maps
 
 cubes: $(CUBES)
 
@@ -36,7 +36,7 @@ $(d)/%.cub: $(s)/%.IMG
 	@echo "🔄 Converting $< → $@"
 	lronac2isis from=$< to=$@
 	@echo "🛰️  Initializing SPICE..."
-	spiceinit from=$@ shape=USER model=$(lola_cub)
+	spiceinit from=$@ shape=USER model=$(lola_cub) web=yes
 
 # Rule to create .json from .cub
 $(a)/%.json: $(d)/%.cub
@@ -80,7 +80,7 @@ $(blurred_ref): $(ref_dem)
 $(out_dir)/%_map.tif: $(d)/%.cub $(ref_dem) $(a)/%.json
 	@mkdir -p $(out_dir)
 	@echo "🗺️  Mapproject $< with CSM model → $@"
-	mapproject -t csm $(ref_dem) $< $(d)/$*.json $@ --tr 1 --tile-size 1024
+	mapproject -t csm $(ref_dem) $< $(a)/$*.json $@ --tr 1 --tile-size 1024
 
 clean:
 	@echo "🧹 Cleaning!"

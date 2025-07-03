@@ -1,116 +1,59 @@
----
+````markdown
+# Creating a DEM Using a Coarse DEM and NAC Images Enhanced with SfS
 
-# 🌓 Filter Mapprojected TIFFs Using `dem_mosaic`
+This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and NAC images. The coarse DEM is refined using Shape-from-Shading (SfS).
 
-This guide explains how to use `dem_mosaic` from the [Ames Stereo Pipeline](https://stereopipeline.readthedocs.io/) to filter out mapprojected TIFF files (`*.tif`) that **do not overlap** a specified region of interest (ROI) — e.g., for Shape-from-Shading (SfS) processing over lunar polar regions.
-
----
-
-## 📂 Input
-
-- A folder of mapprojected **TIFF** images (e.g., from `mapproject`)
-- A defined **ROI** in projected coordinates (e.g., for the lunar south pole)
-- [ASP](https://github.com/NeoGeographyToolkit/StereoPipeline) installed (command: `dem_mosaic`)
-
----
-
-## 🔍 Goal
-
-Identify and keep only the TIFF images that:
-- Contribute valid data to a specified **ROI**
-- Can later be used for SfS or DEM mosaicking
-
----
-
- ### 1. First we fetch the NAC images that lie on the DEM
+## 1. Download LOLA DEM (20 m/pixel)
 
 ```bash
-M1496378219RE.IMG
-M1496434319RE.IMG
-M1496462370RE.IMG
-M1496630688RE.IMG
-M1496658728RE.IMG
-M1496686792RE.IMG
-M1496714841RE.IMG
+wget http://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/IMG/LDEM_80S_20M.IMG
+wget http://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/IMG/LDEM_80S_20M.LBL
 ````
 
-## 🧭 Steps
-
-### 1. Place All `.tif` Files in One Folder
-
-Example:
-```
-
-project/
-├── tif/
-│   ├── M1234567890RE.tif
-│   ├── M1234567890LE.tif
-│   └── ...
-
-````
-
-Navigate to the folder:
-```bash
-cd project/tif/
-````
-
----
-
-### 2. Run `dem_mosaic` in Filtering Mode
-
-Use `--block-max` with a large `--block-size` to process each TIFF as a block.
-
-#### 📌 Syntax:
+## 2. Convert to ISIS Cube Format
 
 ```bash
-dem_mosaic \
-  --block-max \
-  --block-size 10000 \
-  --threads 1 \
-  --t_projwin <xmin> <ymax> <xmax> <ymin> \
-  *.tif -o dummy.tif | tee pixel_sum_list.txt
+pds2isis from=LDEM_80S_20M.LBL to=ldem_80s_20m.cub
 ```
 
-#### 📍 Example:
+## 3. Scale DEM Heights (as per .LBL)
 
 ```bash
-dem_mosaic \
-  --block-max \
-  --block-size 10000 \
-  --threads 1 \
-  --t_projwin -7050.5 -10890.5 -1919.5 -5759.5 \
-  *.tif -o dummy.tif | tee pixel_sum_list.txt
+image_calc -c "0.5 * var_0" ldem_80s_20m.cub -o ldem_80s_20m_scale.tif
 ```
 
-* This does **not create a real mosaic**
-* It prints each TIFF’s **pixel sum** inside the ROI
-
----
-
-### 3. Extract Relevant TIFFs
-
-Filter TIFFs that contribute any valid pixels:
+## 4. Resample to 1 m/pixel
 
 ```bash
-grep -E '\.tif' pixel_sum_list.txt | awk '$NF != 0 {print $1}' > valid_tiffs.txt
+gdalwarp -overwrite -r cubicspline -tr 1 1 \
+  -co COMPRESSION=LZW -co TILED=yes -co INTERLEAVE=BAND \
+  -co BLOCKXSIZE=256 -co BLOCKYSIZE=256 \
+  -te -7050.5 -10890.5 -1919.5 -5759.5 \
+  ldem_80s_20m_scale.tif ref.tif
 ```
 
-This creates a file `valid_tiffs.txt` like:
-
-```
-M1234567890RE.tif
-M1234567890LE.tif
-...
-```
-
----
-
-### 4. (Optional) Move or Use Only Relevant TIFFs
-
-You can copy or use the valid TIFFs:
+## 5. (Optional) Reproject to Polar Stereographic
 
 ```bash
-mkdir ../filtered
-xargs -a valid_tiffs.txt -I{}
+proj="+proj=stere +lat_0=-85.3643 +lon_0=31.2387 +R=1737400 +units=m +no_defs"
+
+gdalwarp -t_srs "$proj" -r cubicspline -tr 1 1 -overwrite \
+  -co COMPRESSION=LZW -co TILED=yes \
+  ldem_80s_20m_scale.tif ref.tif
 ```
+
+## 6. Clean DEM (Blur Spikes, Fill Holes)
+
+```bash
+dem_mosaic --dem-blur-sigma 2 ref.tif -o ref_blur.tif
+dem_mosaic --hole-fill ref_blur.tif -o ref_clean.tif
+```
+
+## Notes
+
+* Match DEM resolution to image GSD (use `mapproject` to estimate).
+* Higher-res LOLA DEMs (5 m) available at: [https://core2.gsfc.nasa.gov/PGDA/LOLA\_5mpp/](https://core2.gsfc.nasa.gov/PGDA/LOLA_5mpp/)
+* Stereo DEMs can be blended with LOLA DEM using `dem_mosaic`.
+
+> Final output `ref_clean.tif` is used as the initial DEM for SfS enhancement with NAC imagery.
 

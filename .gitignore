@@ -5,6 +5,6 @@ cub_folder/
 img_folder/
 dem_folder/
 json_folder/
-tif_files/
+tiff/
 dem_cub/
-miscl/
+
