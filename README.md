@@ -31,28 +31,32 @@ gdalwarp -overwrite -r cubicspline -tr 1 1 \
   ldem_80s_20m_scale.tif ref.tif
 ```
 
-## 5. (Optional) Reproject to Polar Stereographic
-
-```bash
-proj="+proj=stere +lat_0=-85.3643 +lon_0=31.2387 +R=1737400 +units=m +no_defs"
-
-gdalwarp -t_srs "$proj" -r cubicspline -tr 1 1 -overwrite \
-  -co COMPRESSION=LZW -co TILED=yes \
-  ldem_80s_20m_scale.tif ref.tif
-```
-
-## 6. Clean DEM (Blur Spikes, Fill Holes)
+## 5. Clean DEM (Blur Spikes, Fill Holes)
 
 ```bash
 dem_mosaic --dem-blur-sigma 2 ref.tif -o ref_blur.tif
 dem_mosaic --hole-fill ref_blur.tif -o ref_clean.tif
 ```
+## 6. Select and Filter NAC Images
 
-## Notes
+* **Download images:** Up to \~1,400 NAC .IMG files inside desired lon/lat bounds (Section 11.5).
+* **Convert to ISIS/CSM:** `.IMG → .cub` (Section 11.7); prefer **CSM** camera models (Section 11.6).
+* **Quick preview:** `mapproject` each image onto `ref_clean.tif` at low resolution (Section 11.7.4).
+* **Automatic relevance test**
 
-* Match DEM resolution to image GSD (use `mapproject` to estimate).
-* Higher-res LOLA DEMs (5 m) available at: [https://core2.gsfc.nasa.gov/PGDA/LOLA\_5mpp/](https://core2.gsfc.nasa.gov/PGDA/LOLA_5mpp/)
-* Stereo DEMs can be blended with LOLA DEM using `dem_mosaic`.
+  ```bash
+  dem_mosaic --block-max --block-size 10000 \
+    --t_projwin -7050.5 -10890.5 -1919.5 -5759.5 \
+    M*.map.lowres.tif -o tmp.tif | tee pixel_sum_list.txt
+  ```
 
-> Final output `ref_clean.tif` is used as the initial DEM for SfS enhancement with NAC imagery.
+  * Positive pixel sums ⇒ image overlaps region of interest. Remove others.
+* **Sort by illumination:**
+
+  ```bash
+  sfs --query *.cub   # prints Sun‑azimuth (°) per image
+  ```
+
+  * Order images so Sun azimuth changes gradually; avoids registration failures.
+
 
