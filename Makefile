@@ -9,6 +9,10 @@ d := cub_folder
 a := json_folder
 lola_img := DEM/LDEM_80S_20M.IMG
 lola_lbl := DEM/LDEM_80S_20M.LBL
+list_gen := scripts/generate_list.sh
+image_list := bundle_para/image_list.txt
+camera_list := bundle_para/camera_list.txt
+mapprojected_list := bundle_para/mapprojected_list.txt
 
 IMG_FILES := $(wildcard $(s)/*.IMG)
 CUBES     := $(patsubst $(s)/%.IMG, $(d)/%.cub, $(IMG_FILES))
@@ -20,9 +24,9 @@ tiff := $(patsubst $(d)/%.cub,$(out_dir)/%_map.tif,$(cub_files))
 # Projection and extent parameters
 te := -7050.5 -10890.5 -1919.5 -5759.5
 
-.PHONY: all clean cubes jsons lola_dem_convert all_maps
+.PHONY: all clean cubes jsons lola_dem_convert all_maps generate_ba_list parallel_ba
 
-all: lola_dem_convert cubes jsons app_maps
+all: lola_dem_convert cubes jsons app_maps generate_ba_list parallel_ba
 
 cubes: $(CUBES)
 
@@ -82,6 +86,34 @@ $(out_dir)/%_map.tif: $(d)/%.cub $(ref_dem) $(a)/%.json
 	@echo "🗺️  Mapproject $< with CSM model → $@"
 	mapproject -t csm $(ref_dem) $< $(a)/$*.json $@ --tr 1 --tile-size 1024
 
+
+generate_ba_list : $(data_script)
+	bash $(list_gen)
+
+parallel_ba:
+	parallel_bundle_adjust                           \
+		--image-list $(image_list)                    \
+		--camera-list $(camera_list)                  \
+		--mapprojected-data-list $(mapprojected_list) \
+		--processes 4                                  \
+		--ip-per-image 20000                           \
+		--overlap-limit 200                            \
+		--num-iterations 100                           \
+		--num-passes 2                                 \
+		--min-matches 1                                \
+		--max-pairwise-matches 2000                    \
+		--camera-weight 0                              \
+		--robust-threshold 2                           \
+		--tri-weight 0.05                              \
+		--tri-robust-threshold 0.05                    \
+		--remove-outliers-params "75.0 3.0 100 100"    \
+		--save-intermediate-cameras                    \
+		--match-first-to-last                          \
+		--min-triangulation-angle 1e-10                \
+		--datum D_MOON                                 \
+		-o ba/run
+
+
 clean:
 	@echo "🧹 Cleaning!"
-	@rm -rf $(d)/*.cub $(a)/*.json default.profraw print.prt
+	@rm -rf  default.profraw print.prt

@@ -1,0 +1,9 @@
+tiff/img2tif/M114859732RE_map.tif
+tiff/img2tif/M147992619RE_map.tif
+tiff/img2tif/M148012947LE_map.tif
+tiff/img2tif/M150366876RE_map.tif
+tiff/img2tif/M152924707RE_map.tif
+tiff/img2tif/M117241732LE_map.tif
+tiff/img2tif/M152979020RE_map.tif
+tiff/img2tif/M139729686RE_map.tif
+tiff/ref.tif

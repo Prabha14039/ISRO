@@ -1,0 +1,8 @@
+cub_folder/M114859732RE.cub
+cub_folder/M147992619RE.cub
+cub_folder/M148012947LE.cub
+cub_folder/M150366876RE.cub
+cub_folder/M152924707RE.cub
+cub_folder/M117241732LE.cub
+cub_folder/M152979020RE.cub
+cub_folder/M139729686RE.cub
