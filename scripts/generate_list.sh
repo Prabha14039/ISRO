@@ -4,7 +4,6 @@ set -e  # Stop on first error
 ###--- USER PATHS ----------------------------------------------------------
 CUB_DIR="cub_folder"                     # .cub files
 CAMERA_DIR="json_folder"                 # *.adjusted_state.json
-MAP_DIR="tiff/img2tif"                   # *_map.tif
 MAP_DEM="tiff/ref.tif"                   # DEM used in mapprojection
 OUT_DIR="bundle_para"                    # where list files go
 mkdir -p "$OUT_DIR"
@@ -22,7 +21,7 @@ for cub in "$CUB_DIR"/*.cub; do
 
   echo "   ↳ $cub"
   if caminfo from="$cub" to="$pvl" > /dev/null 2>&1; then
-    az=$(grep "SubSolarGroundAzimuth" "$pvl" | awk '{print $3}')
+    az=$(grep "SubSolarAzimuth" "$pvl" | awk '{print $3}')
     if [[ -n "$az" ]]; then
       printf '%10.6f  %s\n' "$az" "$cub" >> "$TMP_LIST"
       echo "      ✅ SubSolarAzimuth: $az°"
@@ -55,14 +54,9 @@ sort -n "$TMP_LIST" | tee "$OUT_DIR/sorted_by_azimuth_sorted.txt" | while read -
 
   echo "$cub_path"                        >> "$OUT_DIR/image_list.txt"
   echo "$CAMERA_DIR/${base}.json"        >> "$OUT_DIR/camera_list.txt"
-  echo "$MAP_DIR/${base}_map.tif"        >> "$OUT_DIR/mapprojected_list.txt"
 done
-
-# Append the DEM to the mapprojected list
-echo "$MAP_DEM" >> "$OUT_DIR/mapprojected_list.txt"
 
 echo -e "\n✅ Done!"
 echo "   → $(wc -l < "$OUT_DIR/image_list.txt") images"
 echo "   → $(wc -l < "$OUT_DIR/camera_list.txt") cameras"
-echo "   → $(($(wc -l < "$OUT_DIR/mapprojected_list.txt")-1)) mapprojected images (+DEM)"
 

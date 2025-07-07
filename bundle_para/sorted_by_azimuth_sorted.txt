@@ -1,8 +1,6 @@
- 68.706180  cub_folder/M114859732RE.cub
- 87.406487  cub_folder/M147992619RE.cub
- 87.962676  cub_folder/M148012947LE.cub
-116.036853  cub_folder/M150366876RE.cub
-136.756756  cub_folder/M152924707RE.cub
-269.329231  cub_folder/M117241732LE.cub
-337.032363  cub_folder/M152979020RE.cub
-352.639708  cub_folder/M139729686RE.cub
+133.610838  cub_folder/M152924707RE.cub
+259.214901  cub_folder/M141358234RE.cub
+259.470602  cub_folder/M141344664RE.cub
+260.243927  cub_folder/M141351434RE.cub
+263.151684  cub_folder/M140944356RE.cub
+263.928698  cub_folder/M140937561RE.cub

@@ -1,7 +1,7 @@
 # Intermediate and final outputs
 lola_cub := dem_cub/ldem_80s_20m.cub
 lola_scaled := tiff/ldem_80s_20m_scale.tif
-ref_dem := tiff/refrence.tif
+ref_dem := tiff/reference.tif
 blurred_ref := tiff/ref_blur.tif
 out_dir := tiff/img2tif
 s := img_folder
@@ -94,7 +94,6 @@ parallel_ba:
 	parallel_bundle_adjust                           \
 		--image-list $(image_list)                    \
 		--camera-list $(camera_list)                  \
-		--mapprojected-data-list $(mapprojected_list) \
 		--processes 4                                  \
 		--ip-per-image 20000                           \
 		--overlap-limit 200                            \

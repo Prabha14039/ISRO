@@ -2,12 +2,48 @@
 
 This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and NAC images. The coarse DEM is refined using Shape-from-Shading (SfS).
 
+---
+
+## 📁 Directory Structure
+
+```
+.
+├── DEM/
+├── Stereopipeline/
+├── ba/
+├── bundle_para/
+├── cub_folder/
+├── dem_cub/
+├── img_folder/
+├── isisdata/
+├── json_folder/
+├── misc1/
+├── preview/
+├── run_full1/
+├── scripts/
+├── sfs_ref1/
+├── tiff/
+├── .gitignore
+├── Makefile
+├── README.md
+├── main.py
+```
+
+---
+
+## 🔗 Dataset
+
+You can access the dataset used in this project from the following Google Drive folder:
+👉 [Google Drive Dataset](https://drive.google.com/drive/folders/1CChYeVDqc499VNybrn5w4GTy0H4qOjd5?usp=sharing)
+
+---
+
 ## 1. Download LOLA DEM (20 m/pixel)
 
 ```bash
 wget http://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/IMG/LDEM_80S_20M.IMG
 wget http://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/IMG/LDEM_80S_20M.LBL
-````
+```
 
 ## 2. Convert to ISIS Cube Format
 
@@ -37,11 +73,15 @@ gdalwarp -overwrite -r cubicspline -tr 1 1 \
 dem_mosaic --dem-blur-sigma 2 ref.tif -o ref_blur.tif
 dem_mosaic --hole-fill ref_blur.tif -o ref_clean.tif
 ```
+
 ## 6. Select and Filter NAC Images
 
 * **Download images:** Up to \~1,400 NAC .IMG files inside desired lon/lat bounds (Section 11.5).
+
 * **Convert to ISIS/CSM:** `.IMG → .cub` (Section 11.7); prefer **CSM** camera models (Section 11.6).
+
 * **Quick preview:** `mapproject` each image onto `ref_clean.tif` at low resolution (Section 11.7.4).
+
 * **Automatic relevance test**
 
   ```bash
@@ -51,6 +91,7 @@ dem_mosaic --hole-fill ref_blur.tif -o ref_clean.tif
   ```
 
   * Positive pixel sums ⇒ image overlaps region of interest. Remove others.
+
 * **Sort by illumination:**
 
   ```bash
@@ -58,5 +99,3 @@ dem_mosaic --hole-fill ref_blur.tif -o ref_clean.tif
   ```
 
   * Order images so Sun azimuth changes gradually; avoids registration failures.
-
-
