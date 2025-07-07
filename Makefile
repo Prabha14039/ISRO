@@ -30,16 +30,16 @@ scale:
 	bash scripts/scale_resample_blur.sh
 
 cubs:
-	bash scripts/convert_img_to_cub.sh
+	bash scripts/img_to_cub.sh
 
 json:
 	bash scripts/generate_json.sh
 
 maps:
-	bash scripts/mapproject_all.sh
+	bash scripts/mapproject.sh
 
 lists:
-	bash scripts/generate_bundle_lists.sh
+	bash scripts/generate_lists.sh
 
 ba:
 	bash scripts/run_parallel_ba.sh
