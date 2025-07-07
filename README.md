@@ -10,23 +10,15 @@ This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and
 .
 ├── DEM/
 ├── Stereopipeline/
-├── ba/
-├── bundle_para/
 ├── cub_folder/
 ├── dem_cub/
 ├── img_folder/
-├── isisdata/
 ├── json_folder/
-├── misc1/
-├── preview/
-├── run_full1/
 ├── scripts/
-├── sfs_ref1/
 ├── tiff/
 ├── .gitignore
 ├── Makefile
 ├── README.md
-├── main.py
 ```
 
 ---
