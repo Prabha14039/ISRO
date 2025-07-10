@@ -1,6 +1,6 @@
-# Creating a DEM Using a Coarse DEM and NAC Images Enhanced with SfS
+# 📌 High-Resolution Lunar DEM Generation using CNN + Shape-from-Shading (SfS)
 
-This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and NAC images. The coarse DEM is refined using Shape-from-Shading (SfS).
+This project generates high-resolution lunar Digital Elevation Models (DEMs) using a hybrid approach combining a CNN-based prediction model with Shape-from-Shading (SfS) refinement. The workflow is tailored for mono NAC/OHRC images and coarse SLDEM input.
 
 ---
 
@@ -8,14 +8,13 @@ This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and
 
 ```
 .
-├── DEM/
-├── Stereopipeline/
-├── cub_folder/
-├── dem_cub/
-├── img_folder/
-├── json_folder/
-├── scripts/
-├── tiff/
+├── input_train/          # NAC + SLDEM tiles
+├── processed/            # Normalized tiles
+├── cnn_output/           # CNN-predicted DEMs
+├── sfs_output/           # SfS-refined DEMs
+├── scripts/              # Preprocessing and training scripts
+├── models/               # Saved CNN models
+├── visualization/        # DEM comparison and visual inspection
 ├── .gitignore
 ├── Makefile
 ├── README.md
@@ -25,69 +24,82 @@ This project prepares a Digital Elevation Model (DEM) using coarse LOLA data and
 
 ## 🔗 Dataset
 
-You can access the dataset used in this project from the following Google Drive folder:
-👉 [Google Drive Dataset](https://drive.google.com/drive/folders/1CChYeVDqc499VNybrn5w4GTy0H4qOjd5?usp=sharing)
+The dataset includes:
+
+* Controlled NAC mosaics in Polar Stereographic projection (1 m/pixel)
+* SLDEM or LOLA DEM (coarse input at 20 m/pixel)
+
+👉 [Download example data](https://drive.google.com/drive/folders/1CChYeVDqc499VNybrn5w4GTy0H4qOjd5?usp=sharing)
 
 ---
 
-## 1. Download LOLA DEM (20 m/pixel)
+## 🧐 Workflow Overview
+
+### Step 1: Prepare Input DEMs and Imagery
+
+* Download and convert SLDEM to ISIS format.
+* Apply scale factor and convert to GeoTIFF.
+* Acquire controlled NAC mosaics.
+* Resample NAC to match DEM.
+* Clean DEM for SfS.
+
+**Script:** `scripts/prepare_inputs.sh`
+
+---
+
+### Step 2: NAC & SLDEM Tile Generation
+
+* Generate aligned tiles and skip low-validity ones.
+
+**Script:** `scripts/tile_by_geographic_extent.py`
+
+---
+
+### Step 3: Elevation Normalization
+
+* Normalize DEM tiles to \[0, 1] range after zero-mean, unit-variance scaling.
+
+**Script:** `scripts/normalize_tiles.py`
+
+---
+
+### Step 4: CNN-based DEM Prediction
+
+* Predict refined DEM using a trained CNN.
+
+**Script:** `scripts/train_model.py`
+
+---
+
+### Step 5: SfS Refinement
+
+* Apply Shape-from-Shading to enhance predicted DEMs using illumination cues.
+
+---
+
+## 📈 Evaluation
+
+* Compare SfS DEMs to reference LOLA or stereo DEMs
+* Metrics: RMSE, elevation profile differences, terrain features
+
+---
+
+## 💡 Key Features
+
+* Works with mono NAC/OHRC images
+* Does not require stereo or altimetry input
+* CNN learns terrain structure; SfS refines shape realism
+* Supports lunar south polar regions
+* Produces ≤2 m/pixel DEMs from mission-ready imagery
+
+---
+
+## 📂 All Bash Commands
 
 ```bash
-wget http://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/IMG/LDEM_80S_20M.IMG
-wget http://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/IMG/LDEM_80S_20M.LBL
+bash scripts/prepare_inputs.sh
+python scripts/tile_by_geographic_extent.py
+python scripts/normalize_tiles.py
+python scripts/train_model.py
 ```
 
-## 2. Convert to ISIS Cube Format
-
-```bash
-pds2isis from=LDEM_80S_20M.LBL to=ldem_80s_20m.cub
-```
-
-## 3. Scale DEM Heights (as per .LBL)
-
-```bash
-image_calc -c "0.5 * var_0" ldem_80s_20m.cub -o ldem_80s_20m_scale.tif
-```
-
-## 4. Resample to 1 m/pixel
-
-```bash
-gdalwarp -overwrite -r cubicspline -tr 1 1 \
-  -co COMPRESSION=LZW -co TILED=yes -co INTERLEAVE=BAND \
-  -co BLOCKXSIZE=256 -co BLOCKYSIZE=256 \
-  -te -7050.5 -10890.5 -1919.5 -5759.5 \
-  ldem_80s_20m_scale.tif ref.tif
-```
-
-## 5. Clean DEM (Blur Spikes, Fill Holes)
-
-```bash
-dem_mosaic --dem-blur-sigma 2 ref.tif -o ref_blur.tif
-dem_mosaic --hole-fill ref_blur.tif -o ref_clean.tif
-```
-
-## 6. Select and Filter NAC Images
-
-* **Download images:** Up to \~1,400 NAC .IMG files inside desired lon/lat bounds (Section 11.5).
-
-* **Convert to ISIS/CSM:** `.IMG → .cub` (Section 11.7); prefer **CSM** camera models (Section 11.6).
-
-* **Quick preview:** `mapproject` each image onto `ref_clean.tif` at low resolution (Section 11.7.4).
-
-* **Automatic relevance test**
-
-  ```bash
-  dem_mosaic --block-max --block-size 10000 \
-    --t_projwin -7050.5 -10890.5 -1919.5 -5759.5 \
-    M*.map.lowres.tif -o tmp.tif | tee pixel_sum_list.txt
-  ```
-
-  * Positive pixel sums ⇒ image overlaps region of interest. Remove others.
-
-* **Sort by illumination:**
-
-  ```bash
-  sfs --query *.cub   # prints Sun‑azimuth (°) per image
-  ```
-
-  * Order images so Sun azimuth changes gradually; avoids registration failures.
