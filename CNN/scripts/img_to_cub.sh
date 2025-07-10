@@ -2,7 +2,7 @@
 set -e
 
 IMG_FOLDER="img_folder"
-CUB_FOLDER="cub_folder"
+CUB_FOLDER="DTM_cub"
 LOLA_CUB="dem_cub/ldem_80s_20m.cub"
 
 mkdir -p "$CUB_FOLDER"

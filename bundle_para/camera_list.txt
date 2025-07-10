@@ -1,5 +1,0 @@
-json_folder/M141358234RE.json
-json_folder/M141344664RE.json
-json_folder/M141351434RE.json
-json_folder/M140944356RE.json
-json_folder/M140937561RE.json
