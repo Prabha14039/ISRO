@@ -1,6 +1,0 @@
-133.610838  cub_folder/M152924707RE.cub
-259.214901  cub_folder/M141358234RE.cub
-259.470602  cub_folder/M141344664RE.cub
-260.243927  cub_folder/M141351434RE.cub
-263.151684  cub_folder/M140944356RE.cub
-263.928698  cub_folder/M140937561RE.cub
