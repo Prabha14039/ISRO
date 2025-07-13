@@ -1,105 +1,149 @@
 # 📌 High-Resolution Lunar DEM Generation using CNN + Shape-from-Shading (SfS)
+---
 
-This project generates high-resolution lunar Digital Elevation Models (DEMs) using a hybrid approach combining a CNN-based prediction model with Shape-from-Shading (SfS) refinement. The workflow is tailored for mono NAC/OHRC images and coarse SLDEM input.
+## 🛰️ Lunar DEM Enhancement Pipeline
+
+This project aims to improve the accuracy of lunar DEMs (Digital Elevation Models) by fusing high-resolution NAC DTMs with coarse-resolution SLDEM using deep learning and refining results through Shape-from-Shading (SfS).
 
 ---
 
-## 📁 Directory Structure
+### 📂 Input Data
 
-```
-.
-├── input_train/          # NAC + SLDEM tiles
-├── processed/            # Normalized tiles
-├── cnn_output/           # CNN-predicted DEMs
-├── sfs_output/           # SfS-refined DEMs
-├── scripts/              # Preprocessing and training scripts
-├── models/               # Saved CNN models
-├── visualization/        # DEM comparison and visual inspection
-├── .gitignore
-├── Makefile
-├── README.md
-```
+* **High-resolution NAC stereo-derived DEMs** (5 meters/pixel)
+* **Coarse-resolution SLDEM** (20 meters/pixel, 80°S coverage)
 
 ---
 
-## 🔗 Dataset
+### 🔄 Pipeline Overview
 
-The dataset includes:
+#### 1. ✅ Convert Input DEMs
 
-* Controlled NAC mosaics in Polar Stereographic projection (1 m/pixel)
-* SLDEM or LOLA DEM (coarse input at 20 m/pixel)
+* Convert `.IMG` files to ISIS `.cub` format using `lronac2isis`.
+* Scale elevation values using the scaling factor in `.LBL` files.
 
-👉 [Download example data](https://drive.google.com/drive/folders/1CChYeVDqc499VNybrn5w4GTy0H4qOjd5?usp=sharing)
+#### 2. ✅ NAC DTM Selection (South Pole)
 
----
+* Select controlled NAC DTMs covering the desired region at 1 m/pixel.
+* Only use DTMs in **Lunar South Polar Stereographic** projection.
 
-## 🧐 Workflow Overview
+#### 3. ✅ Spatial Cropping and Tiling
 
-### Step 1: Prepare Input DEMs and Imagery
+* Crop SLDEM to match the NAC DTM spatial extent.
+* Split both into tiles of **256×320 pixels**.
 
-* Download and convert SLDEM to ISIS format.
-* Apply scale factor and convert to GeoTIFF.
-* Acquire controlled NAC mosaics.
-* Resample NAC to match DEM.
-* Clean DEM for SfS.
+#### 4. ✅ Preprocessing
 
-**Script:** `scripts/prepare_inputs.sh`
+* Normalize NAC DEM elevations:
 
----
+  * Zero-mean, unit-variance
+  * Subtract minimum elevation
+  * Scale to `[0, 1]`
 
-### Step 2: NAC & SLDEM Tile Generation
+#### 5. ✅ Dataset Preparation
 
-* Generate aligned tiles and skip low-validity ones.
+* Select:
 
-**Script:** `scripts/tile_by_geographic_extent.py`
+  * 27,000 training tiles
+  * 3,000 validation tiles
+* Apply **data augmentation**:
 
----
-
-### Step 3: Elevation Normalization
-
-* Normalize DEM tiles to \[0, 1] range after zero-mean, unit-variance scaling.
-
-**Script:** `scripts/normalize_tiles.py`
+  * Random horizontal/vertical flips with 50% probability
 
 ---
 
-### Step 4: CNN-based DEM Prediction
+### 🧠 Deep Learning Model
 
-* Predict refined DEM using a trained CNN.
+#### 🔹 Inputs:
 
-**Script:** `scripts/train_model.py`
+* (LDEM tile).tif
+* (NAC DTM tile).tif
 
----
+#### 🔹 Encoders:
 
-### Step 5: SfS Refinement
+* **NAC → ResNet50**
+* **SLDEM → 5 conv blocks**
 
-* Apply Shape-from-Shading to enhance predicted DEMs using illumination cues.
+#### 🔹 Fusion Strategy:
 
----
+* Concatenate encoder features for joint decoding.
 
-## 📈 Evaluation
+#### 🔹 Decoder:
 
-* Compare SfS DEMs to reference LOLA or stereo DEMs
-* Metrics: RMSE, elevation profile differences, terrain features
+* 4 up-projection blocks with skip connections for feature reconstruction.
 
----
+#### 🔹 Output:
 
-## 💡 Key Features
-
-* Works with mono NAC/OHRC images
-* Does not require stereo or altimetry input
-* CNN learns terrain structure; SfS refines shape realism
-* Supports lunar south polar regions
-* Produces ≤2 m/pixel DEMs from mission-ready imagery
+* 1-channel predicted DEM (CNN-derived DEM)
 
 ---
 
-## 📂 All Bash Commands
+### 🛠 Post-Processing
+
+* Apply **Shape-from-Shading (SfS)** using:
+
+  * Predicted CNN-derived DEM
+  * Original NAC images
+
+---
+
+### 🎯 Final Output
+
+* **Improved-accuracy DEM**
+
+---
+
+## 🗂 Directory Structure (Recommended)
 
 ```bash
-bash scripts/prepare_inputs.sh
-python scripts/tile_by_geographic_extent.py
-python scripts/normalize_tiles.py
-python scripts/train_model.py
+project/
+├── data/
+│   ├── NAC/                # Raw .IMG files
+│   ├── SLDEM/              # Low-res SLDEM
+│   └── labels/             # Processed DEMs or masks
+├── scripts/
+│   ├── download.py
+│   ├── convert_to_cub.sh
+│   └── preprocess.py
+├── models/
+│   └── unet_model.py
+├── train/
+│   └── train.py
+├── inference/
+│   └── sfs_refinement.py
+└── README.md
 ```
 
+---
+
+## ⚙️ Dependencies
+
+* [ISIS3](https://isis.astrogeology.usgs.gov/)
+* `shapely`, `rasterio`, `opencv`, `torch`, `tqdm`, etc.
+
+Install via:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Training Command
+
+```bash
+python train/train.py \
+  --input_nac nac_tiles/ \
+  --input_sldem sldem_tiles/ \
+  --epochs 50 \
+  --batch_size 32
+```
+
+---
+
+## 📌 Notes
+
+* All DEMs must be aligned to a **common projection**.
+* Elevation values must be normalized for stable training.
+* Post-SfS improvement can recover high-frequency terrain details.
+
+---
