@@ -1,105 +1,67 @@
-# 📌 High-Resolution Lunar DEM Generation using CNN + Shape-from-Shading (SfS)
+## 🌓 **Malapert Massif High-Resolution DEM Generation – Brief Overview**
 
-This project generates high-resolution lunar Digital Elevation Models (DEMs) using a hybrid approach combining a CNN-based prediction model with Shape-from-Shading (SfS) refinement. The workflow is tailored for mono NAC/OHRC images and coarse SLDEM input.
+### 🔹 **1. Region Selection**
 
----
-
-## 📁 Directory Structure
-
-```
-.
-├── input_train/          # NAC + SLDEM tiles
-├── processed/            # Normalized tiles
-├── cnn_output/           # CNN-predicted DEMs
-├── sfs_output/           # SfS-refined DEMs
-├── scripts/              # Preprocessing and training scripts
-├── models/               # Saved CNN models
-├── visualization/        # DEM comparison and visual inspection
-├── .gitignore
-├── Makefile
-├── README.md
-```
+* Malapert Massif was selected as a candidate landing site for **Artemis III**.
+* A **4×4 km area** was defined around the nominal landing site to match the **2 km EVA radius**.
 
 ---
 
-## 🔗 Dataset
+### 🔹 **2. Base DEM Preparation**
 
-The dataset includes:
-
-* Controlled NAC mosaics in Polar Stereographic projection (1 m/pixel)
-* SLDEM or LOLA DEM (coarse input at 20 m/pixel)
-
-👉 [Download example data](https://drive.google.com/drive/folders/1CChYeVDqc499VNybrn5w4GTy0H4qOjd5?usp=sharing)
+* Used **5 mpp LOLA LDEM** as the base elevation model.
+* Resampled the data to **1 mpp** for higher resolution terrain processing.
 
 ---
 
-## 🧐 Workflow Overview
+### 🔹 **3. Controlled NAC Mosaic Usage**
 
-### Step 1: Prepare Input DEMs and Imagery
-
-* Download and convert SLDEM to ISIS format.
-* Apply scale factor and convert to GeoTIFF.
-* Acquire controlled NAC mosaics.
-* Resample NAC to match DEM.
-* Clean DEM for SfS.
-
-**Script:** `scripts/prepare_inputs.sh`
+* A **pre-existing controlled NAC mosaic** (Henriksen et al. 2023) of the Malapert region was used.
+* It provided **accurate geolocation** and was used to **align individual NAC images**.
 
 ---
 
-### Step 2: NAC & SLDEM Tile Generation
+### 🔹 **4. NAC Image Download & Alignment**
 
-* Generate aligned tiles and skip low-validity ones.
-
-**Script:** `scripts/tile_by_geographic_extent.py`
-
----
-
-### Step 3: Elevation Normalization
-
-* Normalize DEM tiles to \[0, 1] range after zero-mean, unit-variance scaling.
-
-**Script:** `scripts/normalize_tiles.py`
+* Despite having the mosaic, raw **NAC images were downloaded** for SfS.
+* These images retain **original lighting and shadow details** needed for photometric modeling.
+* Each NAC image was **aligned to the mosaic** for geographic accuracy.
 
 ---
 
-### Step 4: CNN-based DEM Prediction
+### 🔹 **5. Tiling for Processing**
 
-* Predict refined DEM using a trained CNN.
-
-**Script:** `scripts/train_model.py`
-
----
-
-### Step 5: SfS Refinement
-
-* Apply Shape-from-Shading to enhance predicted DEMs using illumination cues.
+* The 4000×4000 pixel (4×4 km) region was split into **64 tiles** (8×8 grid), each 500×500 pixels.
+* This made processing manageable and allowed parallel or per-tile computation.
 
 ---
 
-## 📈 Evaluation
+### 🔹 **6. Shape-from-Shading (SfS) Application**
 
-* Compare SfS DEMs to reference LOLA or stereo DEMs
-* Metrics: RMSE, elevation profile differences, terrain features
-
----
-
-## 💡 Key Features
-
-* Works with mono NAC/OHRC images
-* Does not require stereo or altimetry input
-* CNN learns terrain structure; SfS refines shape realism
-* Supports lunar south polar regions
-* Produces ≤2 m/pixel DEMs from mission-ready imagery
+* **4 to 25 NAC images per tile** were selected based on coverage and lighting.
+* SfS computed detailed elevation by analyzing **brightness differences** across images.
+* This resulted in a **refined DEM** with high spatial detail (craters, roughness, slopes).
 
 ---
 
-## 📂 All Bash Commands
+### 🔹 **7. Post-Processing & Slope Analysis**
 
-```bash
-bash scripts/prepare_inputs.sh
-python scripts/tile_by_geographic_extent.py
-python scripts/normalize_tiles.py
-python scripts/train_model.py
-```
+* The refined DEM revealed:
 
+  * Slope patterns near the ridgeline (10°–15° increasing to 20°–25°).
+  * Surface hazards like craters and steep slopes.
+* Useful for **EVA planning** and **HLS (Human Landing System)** testing.
+
+---
+
+### 🔹 **8. Gap Filling & Limitations**
+
+* 6 out of 64 tiles failed SfS due to poor image data or alignment issues.
+* Those tiles were **filled using original LOLA DEM**, introducing some artifacts.
+* Noted limitation: **SfS doesn't work in permanently shadowed regions (PSRs)**, but LOLA does.
+
+---
+
+## ✅ **In Summary:**
+
+> The process used LOLA as the base, a controlled NAC mosaic for alignment, raw NAC images for photometric detail, and SfS to generate a high-resolution DEM over a 4×4 km area — supporting safe landing and EVA planning for Artemis III.
