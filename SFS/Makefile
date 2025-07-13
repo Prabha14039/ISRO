@@ -1,7 +1,7 @@
 exe:=scripts
 python:=/opt/homebrew/Caskroom/miniforge/base/envs/lunar_env/bin/python3
 
-.PHONY: start
+.PHONY: start json
 
 all: img2cub json
 
@@ -13,3 +13,7 @@ img2cub:
 
 json:
 	bash scripts/json.sh --cub_folder Dataset/cub --json_folder Dataset/json
+
+clean:
+	@echo "🧹 Cleaning temporary files..."
+	@rm -f default.profraw print.prt
