@@ -56,4 +56,3 @@ gdalwarp -overwrite -r cubicspline -tr 1 1 \
 
 echo "💨 Blurring and cleaning..."
 dem_mosaic --dem-blur-sigma 2 "$REF" -o "$BLUR"
-
