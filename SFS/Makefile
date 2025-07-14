@@ -15,7 +15,7 @@ json:
 	bash scripts/json.sh --cub_folder Dataset/cub --json_folder Dataset/json
 
 clip:
-	bash scripts/clipping.sh --scale_dem Dataset/tif/ldem_80s_20m_scale.tif --ref_dem Dataset/tif/ref.tif --blur_dem Dataset/tif/ref_blur.tif --cord "-2000.0023603072427 -1996.0929794951319 1999.9984217298127 1996.2060531710554"
+	bash scripts/clipping.sh --scale_dem Dataset/tif/ldem_80s_20m_scale.tif --ref_dem Dataset/tif/ref_mal_massif.tif --blur_dem Dataset/tif/ref_blur_mal_massif.tif --cord "-9703.71152840432 -10826.943981692568 11511.772138051236 9903.406892624425"
 
 clean:
 	@echo "🧹 Cleaning temporary files..."
