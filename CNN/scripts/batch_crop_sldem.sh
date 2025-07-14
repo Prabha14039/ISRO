@@ -1,23 +1,19 @@
 #!/bin/bash
 
 # Path to your resampled SLDEM
-SLDEM="tiff/ldem_80s_20m_scale.tif"
-
-# Output folder
-mkdir -p sldem_proj
+SLDEM="Tiles_Dataset/ldem_80s_20m_scale.tif"
 
 # Projection for the Moon's South Pole
-proj="+proj=stere +lat_0=-85.3643 +lon_0=31.2387 +R=1737400 +units=m +no_defs"
 RES=5
 
 # Loop through all NAC DTM files
-for NAC_DTM in DTM_tif/NAC_POLE_SOUTH_CM_085_*.TIF; do
+for NAC_DTM in Tiles_Dataset/NAC_POLE_SOUTH_CM_AVG_*.TIF; do
 
     echo "📂 Processing $NAC_DTM..."
 
     # Extract base name (e.g., M12345678)
     BASENAME=$(basename "$NAC_DTM" .TIF)
-    OUTPUT="sldem_proj/sldem_${BASENAME}.tif"
+    OUTPUT="Tiles_Dataset/sldem_${BASENAME}.tif"
 
     # Get bounding box from NAC DTM
     bbox=$(gdalinfo "$NAC_DTM" | grep -E "Upper Left|Lower Right")
