@@ -7,9 +7,9 @@ Proje = Proj(proj_str)
 
 
 # Corrected bounding box: positive east longitudes
-corners_lonlat_A3GT = [
-    (356.72848, -86.02928),  # Lower-Left
-    (358.60300, -85.89764),  # Upper-Right
+corners_lonlat = [
+    (353.26630662865, -86.903150594366),    # Upper-Right
+    (2.6674004059205, -84.090533655566),    # Lower-Left
 ]
 
 corners_longlat_MapartMassif = [
@@ -17,8 +17,8 @@ corners_longlat_MapartMassif = [
     (4.33231,  -85.63656),   # Upper-Right
 ]
 
-min_x_1, min_y_1 = Proje(*corners_lonlat_A3GT[0])
-max_x_1, max_y_1 = Proje(*corners_lonlat_A3GT[1])
+min_x_1, min_y_1 = Proje(*corners_lonlat[0])
+max_x_1, max_y_1 = Proje(*corners_lonlat[1])
 min_x, min_y = proj(*corners_longlat_MapartMassif[0])
 max_x, max_y = proj(*corners_longlat_MapartMassif[1])
 print("Malapart_Massif")

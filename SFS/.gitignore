@@ -1,2 +1,4 @@
 Dataset/
 .DS_Store
+work/
+*.nextflow.log

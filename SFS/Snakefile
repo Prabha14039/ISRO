@@ -1,0 +1,41 @@
+import os
+
+IMG_DIR="Dataset/img"
+CUB_DIR="Dataset/cub"
+LOLA_DEM= os.path.join(CUB_DIR,"ldem_80s_20m.cub")
+PYTHON = "/opt/homebrew/Caskroom/miniforge/base/envs/lunar_env/bin/python3"
+
+IMG_FILES = [f for f in os.listdir(IMG_DIR) if f.endswith(".IMG")]
+SAMPLES = [f.replace(".IMG", "") for f in IMG_FILES]
+
+rule all:
+    input:
+        expand(f"{CUB_DIR}/{{sample}}.cal.echo.cub",sample=SAMPLES)
+
+
+rule preprocess:
+    input:
+        img=lambda wc: os.path.join(IMG_DIR,f"{wc.sample}.IMG"),
+        lola=LOLA_DEM
+
+    output:
+        echo=os.path.join(CUB_DIR,"{sample}.cal.echo.cub")
+
+    threads: 6
+
+    log:
+        f"logs/{{sample}}.log"
+
+    message:
+       "Processing {input.img} -> {output.echo}"
+
+    shell:
+        f"""
+        {PYTHON} scripts/img2cub.py {{input.img}} {{output.echo}} {{input.lola}} > {{log}} 2>&1
+        """
+
+rule clean:
+    """
+    rm -rf .snakemake default.profraw print.prt
+        """
+
