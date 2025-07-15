@@ -10,3 +10,4 @@ dem_cub/
 test/
 .DS_STORE
 SFS/*.nextflow.log
+SFS/.nextflow/cache
