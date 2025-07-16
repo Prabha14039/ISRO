@@ -3,15 +3,18 @@
 # ======================
 
 LIBTORCH=/Volumes/Windows/ISRO/CNN/libtorch/
+python_lun=/opt/homebrew/Caskroom/miniforge/base/envs/lunar_env/bin/python3
+python_isis=/opt/homebrew/Caskroom/miniforge/base/envs/isis/bin/python3
+
 
 # ======================
 # DEM + NAC Processing Pipeline
 # ======================
 
-.PHONY: all help
+.PHONY: all help encoders decoders fusion train inference main
 
 # 🔁 Full pipeline
-all: lola scale cubs json maps lists box
+all: encoders decoders fusion train inference main
 
 # 📘 Help menu
 help:
@@ -47,3 +50,20 @@ cpp: #Todolist
 	@echo "Moving to build Directory"
 	@cd build && cmake -DCMAKE_PREFIX_PATH=$(LIBTORCH) .. && cmake --build . --config Release
 
+encoders:
+	@$(python_isis) src/encoder.py
+
+fusion:
+	@$(python_isis) src/fusion.py
+
+decoders:
+	@$(python_isis) src/decoder.py
+
+train:
+	@$(python_isis) src/trainning.py
+
+inference:
+	@$(python_isis) src/inference.py
+
+main:
+	@$(python_isis) src/main.py
