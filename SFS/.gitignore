@@ -3,4 +3,8 @@ Dataset/
 work/
 *.nextflow.log
 .nextflow/cachea
-../CNN/data/
+../CNN/
+SFS/Site23.tif
+SFS/new.tif
+hlspub/
+
