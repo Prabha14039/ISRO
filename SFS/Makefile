@@ -26,15 +26,14 @@ json:
 	bash scripts/json.sh --cub_folder Dataset/cub --json_folder Dataset/json
 
 clip:
-	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem $(tif)/ref.tif --blur_dem $(tif)/reference/ref_blur.tif --cord "-2000.0023603072427 -1996.0929794951319 1999.9984217298127 1996.2060531710554"
-	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem $(tif)/ref_mal_massif.tif --blur_dem $(tif)/reference/ref_blur_mal_massif.tif --cord "-9703.71152840432 -10826.943981692568 11511.772138051236 9903.406892624425"
-	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem $(tif)/test --blur_dem $(tif)/reference/ref_blur_mal_massif.tif --cord "-7243.11,-29139.75,15499.52,56622.47"
+	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem $(tif)/ref.tif --blur_dem $(tif)/reference/ref_blur.tif --cord "-10999.986964673859 110999.90478880588 9999.980317101663 131999.86201203143"
 
 visual:
-	bash scripts/hillshade.sh --in $(ref) --out temp1.tif --azi 300 --ele 20 --fin $(ref_hill)
+	bash scripts/hillshade.sh --in Site23.tif  --out temp1.tif --azi 300 --ele 20 --fin new.tif
+	rm -rf  temp1.tif
 	bash scripts/hillshade.sh --in $(mal_ref) --out temp2.tif --azi 300 --ele 20 --fin $(massif_hill)
-	rm -rf temp2.tif temp1.tif
 
 clean:
 	@echo "🧹 Cleaning temporary files..."
 	@rm -f default.profraw print.prt
+

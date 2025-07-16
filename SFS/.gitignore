@@ -2,4 +2,5 @@ Dataset/
 .DS_Store
 work/
 *.nextflow.log
-.nextflow/cache
+.nextflow/cachea
+../CNN/data/
