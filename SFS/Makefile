@@ -26,12 +26,10 @@ json:
 	bash scripts/json.sh --cub_folder Dataset/cub --json_folder Dataset/json
 
 clip:
-	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem $(tif)/ref.tif --blur_dem $(tif)/reference/ref_blur.tif --cord "-10999.986964673859 110999.90478880588 9999.980317101663 131999.86201203143"
+	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem test/ref2.tif --blur_dem test/ref_blur.tif --cord "-6874.027269473617 120257.44464770069 -3034.0818040263716 124413.4801253888"
 
 visual:
 	bash scripts/hillshade.sh --in Site23.tif  --out temp1.tif --azi 300 --ele 20 --fin new.tif
-	rm -rf  temp1.tif
-	bash scripts/hillshade.sh --in $(mal_ref) --out temp2.tif --azi 300 --ele 20 --fin $(massif_hill)
 
 clean:
 	@echo "🧹 Cleaning temporary files..."
