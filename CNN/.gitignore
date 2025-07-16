@@ -1,0 +1,5 @@
+data/
+libtorch/
+todolist/
+!/data/info.txt
+

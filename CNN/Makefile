@@ -1,8 +1,14 @@
 # ======================
+#	Path/Variables
+# ======================
+
+LIBTORCH=/Volumes/Windows/ISRO/CNN/libtorch/
+
+# ======================
 # DEM + NAC Processing Pipeline
 # ======================
 
-.PHONY: all help lola scale cubs json maps lists ba clean
+.PHONY: all help
 
 # 🔁 Full pipeline
 all: lola scale cubs json maps lists box
@@ -36,4 +42,8 @@ box:
 clean:
 	@echo "🧹 Cleaning temporary files..."
 	@rm -f default.profraw print.prt
+
+cpp: #Todolist
+	@echo "Moving to build Directory"
+	@cd build && cmake -DCMAKE_PREFIX_PATH=$(LIBTORCH) .. && cmake --build . --config Release
 
