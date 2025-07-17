@@ -5,18 +5,18 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 # 1. Load GeoJSON
-geojson_path = "Dataset/2km_EVA.geojson"
+geojson_path = "Dataset/geojson/lroc_nacstereo-products.geojson"
 with open(geojson_path, "r") as f:
     geojson_data = json.load(f)
 
 # 2. Create output folder
-output_folder = "Dataset/img"
+output_folder = "Dataset/stereo"
 os.makedirs(output_folder, exist_ok=True)
 
 # 3. Process each feature
 for feature in geojson_data["features"]:
     props = feature.get("properties", {})
-    view_url = props.get("Url")
+    view_url = props.get("url")
     image_label = props.get("Image")
     subsol_lon = props.get("SubSol Lon", "N/A")  # Log Sub-solar Longitude
 
