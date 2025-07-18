@@ -1,37 +1,53 @@
-exe:=scripts
-python:=/opt/homebrew/Caskroom/miniforge/base/envs/lunar_env/bin/python3
-tif:=Dataset/tif
-A3GT_ref:=$(tif)/reference/A3GT
-massif_ref:=$(tif)/reference/M_massif
-hillshade:=$(tif)/hillshade
-dem:=ldem_80s_20m_scale.tif
-ref:=$(A3GT_ref)/ref_blur.tif
-mal_ref:=$(massif_ref)/ref_blur_mal_massif.tif
-ref_hill:=$(hillshade)/A3GT.tif
-massif_hill:=$(hillshade)/Massif.tif
-cub:=Dataset/cub
+# Directories
+IMG_DIR := Dataset/img
+CUB_DIR := Dataset/cub
+JSON_DIR := Dataset/json
+LOLA_CUB := /Volumes/Windows/ISRO/SFS/Dataset/cub/ldem_80s_20m.cub
+python := /opt/homebrew/Caskroom/miniforge/base/envs/lunar_env/bin/python3
+
+# Get list of image base names (without path and extension)
+SAMPLES := $(basename $(notdir $(wildcard $(IMG_DIR)/*.IMG)))
+
+# Default target builds all JSONs
+all: $(addprefix $(JSON_DIR)/, $(addsuffix .json, $(SAMPLES)))
+cub: $(addprefix $(CUB_DIR)/, $(addsuffix .cub.done, $(SAMPLES)))
+spicecub: $(addprefix $(CUB_DIR)/, $(addsuffix .spice.cub.done, $(SAMPLES)))
+
+$(CUB_DIR)/%.cub.done: $(IMG_DIR)/%.IMG
+	@mkdir -p $(CUB_DIR)
+	@echo "Converting $< to $*.cub"
+	lronac2isis from=$< to=$(CUB_DIR)/$*.cub
+	@touch $@
+
+# Rule: .cub → .spice.cub.done
+$(CUB_DIR)/%.spice.cub.done: $(CUB_DIR)/%.cub.done
+	@mkdir -p $(CUB_DIR)
+	@echo "Creating spice.cub for $*"
+	cp $(CUB_DIR)/$*.cub $(CUB_DIR)/$*.spice.cub
+	spiceinit from=$(CUB_DIR)/$*.spice.cub shape=USER model=$(LOLA_CUB) web=yes
+	@touch $@
+	@rm -f $<
 
 
-.PHONY: start json img2cub hillshade clip visual clean
+# Calibrate .cub → .cal.cub
+$(CUB_DIR)/%.cal.cub.done: $(CUB_DIR)/%.cub
+	@echo "Calibrating $<"
+	lronaccal from=$< to=$(CUB_DIR)/$*.cal.cub
+	@touch $@
 
-all: preprocess json clip
+# Echo .cal.cub → .cal.echo.cub
+$(CUB_DIR)/%.cal.echo.cub: $(CUB_DIR)/%.cal.cub
+	@echo "Echoing $<"
+	lronacecho from=$< to=$@
 
-start:
-	 $(python) $(exe)/download.py
+# Generate JSON from .cal.echo.cub → .json
+$(JSON_DIR)/%.json: $(CUB_DIR)/%.cal.echo.cub
+	@mkdir -p $(JSON_DIR)
+	@echo "Generating JSON from $<"
+	isd_generate -o $@ $<
+	@echo "Cleaning up intermediate files for $*"
+	@rm -f $(CUB_DIR)/$*.cub
+	@rm -f $(CUB_DIR)/$*.cal.cub
 
-preprocess:
-	bash scripts/img2cub.sh --img_folder Dataset/img --cub_folder Dataset/cub --lola_cub $(cub)/ldem_80s_20m.cub
-
-json:
-	bash scripts/json.sh --cub_folder Dataset/cub --json_folder Dataset/json
-
-clip:
-	bash scripts/clipping.sh --scale_dem $(tif)/$(dem) --ref_dem test/ref2.tif --blur_dem test/ref_blur.tif --cord "-6874.027269473617 120257.44464770069 -3034.0818040263716 124413.4801253888"
-
-visual:
-	bash scripts/hillshade.sh --in Site23.tif  --out temp1.tif --azi 300 --ele 20 --fin new.tif
-
-clean:
-	@echo "🧹 Cleaning temporary files..."
-	@rm -f default.profraw print.prt
+.PHONY: all cub spicecub
 
